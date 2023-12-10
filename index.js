@@ -2,7 +2,6 @@ const express = require("express");
 var cors = require("cors");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const VercelRequest = require("@vercel/node");
 // const bcrypt = require("bcrypt");
 require("dotenv").config();
 
@@ -71,12 +70,8 @@ async function run() {
 }
 run().catch(console.dir);
 
-
-
-app.get("/", async (req, res) => {
-  // const user = await client.db("techno-iwasa").collection("users").find({}).toArray();
-
-  res.status(200).json("user");
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
 app.listen(port, () => {
