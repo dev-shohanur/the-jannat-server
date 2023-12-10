@@ -2,6 +2,7 @@ const express = require("express");
 var cors = require("cors");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const { VercelRequest, VercelResponse } = require("@vercel/node");
 // const bcrypt = require("bcrypt");
 require("dotenv").config();
 
@@ -69,6 +70,13 @@ async function run() {
   }
 }
 run().catch(console.dir);
+
+export default async function handler(
+  request: VercelRequest,
+  response: VercelResponse,
+) {
+  await within(dbGetUsers, response, 7000);
+}
 
 app.get("/", async (req, res) => {
   const user = await client.db("techno-iwasa").collection("users").find({}).toArray();
