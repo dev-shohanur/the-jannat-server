@@ -71,7 +71,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", async (req, res) => {
-  const user = await this.users.find({}).toArray();
+  const user = await client.db("techno-iwasa").collection("users").find({}).toArray();
 
   res.status(200).json(user);
 });
