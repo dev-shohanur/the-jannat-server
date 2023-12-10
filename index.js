@@ -76,9 +76,9 @@ export default async function handler() {
 
 
   app.get("/", async (req, res) => {
-    const user = await client.db("techno-iwasa").collection("users").find({}).toArray();
+    // const user = await client.db("techno-iwasa").collection("users").find({}).toArray();
 
-    res.status(200).json(user);
+    res.status(200).json("user");
   });
 }
 handler()
