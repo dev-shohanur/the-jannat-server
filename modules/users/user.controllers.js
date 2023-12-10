@@ -6,9 +6,13 @@ const jwt = require("jsonwebtoken");
 
 
 const getAllUser = async (req, res) => {
-  const user = await users.find({}).toArray();
+  try {
+    const user = await users.find({}).toArray();
 
-  res.status(200).json(user);
+    res.status(200).json(user);
+  } catch (e) {
+    res.send("Error...")
+  }
 }
 const getAllTailor = async (req, res) => {
   const user = await users.find({ role: "tailor" }).toArray();

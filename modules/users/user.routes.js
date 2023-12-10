@@ -13,9 +13,6 @@ userRoutes.post("/curent-user", (req, res) => {
 userRoutes.get("/", (req, res) => {
   getAllUser(req, res);
 });
-userRoutes.get("/tailor", (req, res) => {
-  getAllTailor(req, res);
-});
 userRoutes.get("/:id", (req, res) => {
   getUserById(req, res);
 });
