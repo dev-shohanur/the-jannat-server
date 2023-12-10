@@ -71,17 +71,14 @@ async function run() {
 }
 run().catch(console.dir);
 
-export default async function handler() {
-  await within(dbGetUsers, response, 7000);
 
 
-  app.get("/", async (req, res) => {
-    // const user = await client.db("techno-iwasa").collection("users").find({}).toArray();
+app.get("/", async (req, res) => {
+  // const user = await client.db("techno-iwasa").collection("users").find({}).toArray();
 
-    res.status(200).json("user");
-  });
-}
-handler()
+  res.status(200).json("user");
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
