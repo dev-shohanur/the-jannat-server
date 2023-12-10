@@ -2,6 +2,7 @@ const express = require("express");
 var cors = require("cors");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 // const bcrypt = require("bcrypt");
 require("dotenv").config();
 
@@ -70,9 +71,100 @@ async function run() {
 }
 run().catch(console.dir);
 
+const categorysCollection = client.db("techno-iwasa").collection("categorys");
+const usersCollection = client.db("techno-iwasa").collection("users");
+const products = client.db("techno-iwasa").collection("products");
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//<--------------------------| User Data |--------------------------->
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+app.get("/user", async (req, res) => {
+  const user = await usersCollection.find({}).toArray();
+
+  res.status(200).json(user);
+});
+app.post("/user/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find the user in the database
+    const user = await usersCollection.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ error: "Invalid username or password" });
+    }
+
+    // Check if the password is correct
+    const passwordMatch = (await password) === user.password;
+
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Invalid username or password" });
+    }
+
+    // Generate a JWT token
+    const token = jwt.sign(user, process.env.JWT_TOKEN);
+
+    res.status(200).json({ token, user });
+  } catch (err) {
+    console.error("Error logging in user ssoososo:", err);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
+app.post("/user/curent-user", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  try {
+    // Verify the JWT token
+    const decoded = jwt.verify(token, "1231");
+
+    // Attach the user's information to the request object
+    req.user = decoded;
+
+    res.json(req.user);
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+});
+app.get("/user/:id", async (req, res) => {
+  const id = req.params.id
+  console.error(id)
+  if (id) {
+
+    const user = await usersCollection.findOne({ _id: new ObjectId(id) });
+
+    return res.status(200).json(user);
+  } else {
+    return res.status(401).json("error");
+  }
+});
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//<--------------------------| Category Data |--------------------------->
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+app.get("/user", async (req, res) => {
+  const user = await usersCollection.find({}).toArray();
+
+  res.status(200).json(user);
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
