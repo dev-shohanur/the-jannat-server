@@ -70,8 +70,10 @@ async function run() {
 }
 run().catch(console.dir);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.get("/", async (req, res) => {
+  const user = await this.users.find({}).toArray();
+
+  res.status(200).json(user);
 });
 
 app.listen(port, () => {
