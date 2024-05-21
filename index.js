@@ -1,16 +1,17 @@
 const express = require("express");
-var cors = require("cors");
+const app = express();
+
+const cors = require("cors");
+app.use(cors());
+
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 // const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
-
-const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
 
 app.use(bodyParser.json());
 const corsConfig = {

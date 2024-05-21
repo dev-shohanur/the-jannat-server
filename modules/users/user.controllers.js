@@ -17,16 +17,20 @@ const getAllUser = async (req, res) => {
 
 const getUserById = async (req, res) => {
 
-  // const id = req.params.id
-  // console.error(id)
-  // if (id) {
+  try {
+    const id = req.params.id
+    console.error(id)
+    if (id) {
 
-  //   const user = await users.findOne({ _id: new ObjectId(id) });
+      const user = await users.findOne({ _id: new ObjectId(id) });
 
-  //   return res.status(200).json(user);
-  // } else {
-  //   return res.status(401).json("error");
-  // }
+      return res.status(200).json(user);
+    } else {
+      return res.status(401).json("error");
+    }
+  } catch (e) {
+    res.send("Error...")
+  }
 
 }
 
@@ -62,14 +66,14 @@ const loginUserMyApp = async (req, res) => {
 };
 
 const getCurentUser = async (req, res) => {
-  // Get the JWT token from the Authorization header
-  const token = req.headers.authorization?.split(" ")[1];
-
-  if (!token) {
-    return res.status(401).json({ message: "No token provided" });
-  }
 
   try {
+    // Get the JWT token from the Authorization header
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "No token provided" });
+    }
     // Verify the JWT token
     const decoded = jwt.verify(token, "1231");
 
