@@ -1,5 +1,5 @@
 const express = require("express");
-const { loginUserMyApp, getCurentUser, getAllUser, getUserById, getAllTailor } = require("./user.controllers.js");
+const { loginUserMyApp, getCurentUser, getAllUser, getUserById } = require("./user.controllers.js");
 const userRoutes = express.Router();
 
 // Define the user routes

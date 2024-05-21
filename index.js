@@ -22,7 +22,7 @@ const corsConfig = {
 app.use(cors(corsConfig));
 app.options("", cors(corsConfig));
 
-const uri = "mongodb+srv://shohanur:SiNRSxd1HZHIyhJ8@cluster0.yichpba.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://jannat:jannat123@cluster0.yichpba.mongodb.net/techno-iwasa";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {

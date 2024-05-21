@@ -14,23 +14,19 @@ const getAllUser = async (req, res) => {
     res.send("Error...")
   }
 }
-const getAllTailor = async (req, res) => {
-  const user = await users.find({ role: "tailor" }).toArray();
 
-  res.status(200).json(user);
-}
 const getUserById = async (req, res) => {
 
-  const id = req.params.id
-  console.error(id)
-  if (id) {
+  // const id = req.params.id
+  // console.error(id)
+  // if (id) {
 
-    const user = await users.findOne({ _id: new ObjectId(id) });
+  //   const user = await users.findOne({ _id: new ObjectId(id) });
 
-    return res.status(200).json(user);
-  } else {
-    return res.status(401).json("error");
-  }
+  //   return res.status(200).json(user);
+  // } else {
+  //   return res.status(401).json("error");
+  // }
 
 }
 
@@ -39,6 +35,7 @@ const getUserById = async (req, res) => {
 const loginUserMyApp = async (req, res) => {
   try {
     const { email, password } = req.body;
+
 
     // Find the user in the database
     const user = await users.findOne({ email });
@@ -85,4 +82,4 @@ const getCurentUser = async (req, res) => {
   }
 };
 
-module.exports = { loginUserMyApp, getCurentUser, getAllUser, getUserById, getAllTailor };
+module.exports = { loginUserMyApp, getCurentUser, getAllUser, getUserById };
