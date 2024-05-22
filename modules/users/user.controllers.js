@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongodb");
-const { users } = require("../../index.js");
+const { users } = require("../../db.js");
 const jwt = require("jsonwebtoken");
 
 // Log in an existing user
@@ -19,7 +19,6 @@ const getUserById = async (req, res) => {
 
   try {
     const id = req.params.id
-    console.error(id)
     if (id) {
 
       const user = await users.findOne({ _id: new ObjectId(id) });

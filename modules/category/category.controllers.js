@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongodb");
-const { categorys } = require("../../index.js");
+const { categorys } = require("../../db.js");
 const jwt = require("jsonwebtoken");
 
 // Log in an existing user
